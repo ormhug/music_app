@@ -1,1 +1,70 @@
-<p>record-list works!</p>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Record List</h2>
+    
+    <div class="d-flex gap-2">
+      <button (click)="exportToPdf()" class="btn btn-danger">
+        Export PDF
+      </button>
+      
+      <button (click)="exportToExcel()" class="btn btn-success">
+        Export Excel
+      </button>
+
+      <a routerLink="/records/add" class="btn btn-primary">
+        Add Record
+      </a>
+    </div>
+  </div>
+
+  <table class="table table-striped table-hover shadow-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Title (Lower)</th> <th>Artist</th>
+        <th>Format</th>
+        <th>Genre</th>
+        <th>Price</th>
+        <th>Stock Status</th> <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let record of records">
+        <td>{{ record.id }}</td>
+        
+        <td>{{ record.title | lowercase }}</td>
+        
+        <td>{{ record.artist }}</td>
+        <td>{{ record.format }}</td>
+        <td>{{ record.genre }}</td>
+        <td>€{{ record.price }}</td>
+        
+        <td [ngClass]="{
+          'text-success': record.stockQty > 3,
+          'text-warning': record.stockQty >= 1 && record.stockQty <= 3,
+          'text-danger': record.stockQty === 0
+        }">
+          {{ record.stockQty | stockStatus }}
+        </td>
+
+        <td>
+          <a [routerLink]="['/records', record.id]" class="btn btn-info btn-sm me-2">
+            View
+          </a>
+
+          <a *ngIf="canEdit()" 
+             [routerLink]="['/records/edit', record.id]" 
+             class="btn btn-warning btn-sm me-2">
+            Edit
+          </a>
+
+          <button *ngIf="canDelete()" 
+                  (click)="deleteRecord(record.id)" 
+                  class="btn btn-danger btn-sm">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

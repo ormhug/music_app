@@ -1,1 +1,132 @@
-<p>record-form works!</p>
+<div class="container mt-4 mb-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">{{ isEditMode ? 'Edit Record' : 'Add New Record' }}</h3>
+    </div>
+    <div class="card-body">
+
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <form #recordForm="ngForm" (ngSubmit)="onSubmit(recordForm)" novalidate>
+        
+        <h5 class="text-secondary mb-3">Record Details</h5>
+        <div class="row g-3">
+          
+          <div class="col-md-6">
+            <label class="form-label">Title *</label>
+            <input type="text" class="form-control" name="title" [(ngModel)]="record.title" required #title="ngModel">
+            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger small">
+              Title is required.
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Artist *</label>
+            <input type="text" class="form-control" name="artist" [(ngModel)]="record.artist" required #artist="ngModel">
+            <div *ngIf="artist.invalid && (artist.dirty || artist.touched)" class="text-danger small">
+              Artist is required.
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Format *</label>
+            <select class="form-select" name="format" [(ngModel)]="record.format" required #format="ngModel">
+              <option value="">Select Format</option>
+              <option *ngFor="let f of formats" [value]="f">{{ f }}</option>
+            </select>
+            <div *ngIf="format.invalid && (format.dirty || format.touched)" class="text-danger small">
+              Please select a format.
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Genre *</label>
+            <select class="form-select" name="genre" [(ngModel)]="record.genre" required #genre="ngModel">
+              <option value="">Select Genre</option>
+              <option *ngFor="let g of genres" [value]="g">{{ g }}</option>
+            </select>
+            <div *ngIf="genre.invalid && (genre.dirty || genre.touched)" class="text-danger small">
+              Please select a genre.
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Price (€) *</label>
+            <input type="number" class="form-control" name="price" [(ngModel)]="record.price" required min="0.01" #price="ngModel">
+            <div *ngIf="price.invalid && (price.dirty || price.touched)" class="text-danger small">
+              Valid price is required.
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Stock Quantity *</label>
+            <input type="number" class="form-control" name="stockQty" [(ngModel)]="record.stockQty" required min="0" #stock="ngModel">
+            <div *ngIf="stock.invalid && (stock.dirty || stock.touched)" class="text-danger small">
+              Stock quantity cannot be negative.
+            </div>
+          </div>
+
+           <div class="col-md-6">
+            <label class="form-label">Release Year *</label>
+            <input type="number" class="form-control" name="releaseYear" [(ngModel)]="record.releaseYear" required min="1900" #year="ngModel">
+             <div *ngIf="year.invalid && (year.dirty || year.touched)" class="text-danger small">
+              Valid year is required.
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <h5 class="text-secondary mb-3">Customer Information</h5>
+        <div class="row g-3">
+          
+          <div class="col-md-6">
+            <label class="form-label">Customer ID (e.g. 123A) *</label>
+            <input type="text" class="form-control" name="customerId" [(ngModel)]="record.customerId" 
+                   required pattern="^[0-9]+[a-zA-Z]$" #custId="ngModel">
+            <div *ngIf="custId.invalid && (custId.dirty || custId.touched)" class="text-danger small">
+              ID must be numeric ending with one letter.
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Contact Number *</label>
+            <input type="text" class="form-control" name="customerContact" [(ngModel)]="record.customerContact" 
+                   required pattern="^[0-9]{8,}$" #contact="ngModel">
+            <div *ngIf="contact.invalid && (contact.dirty || contact.touched)" class="text-danger small">
+               Must be numeric and at least 8 characters.
+            </div>
+          </div>
+
+           <div class="col-md-6">
+            <label class="form-label">Email *</label>
+            <input type="email" class="form-control" name="customerEmail" [(ngModel)]="record.customerEmail" 
+                   required email #email="ngModel">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger small">
+              Please enter a valid email address.
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">First Name *</label>
+            <input type="text" class="form-control" name="customerFirstName" [(ngModel)]="record.customerFirstName" required>
+          </div>
+           <div class="col-md-3">
+            <label class="form-label">Last Name *</label>
+            <input type="text" class="form-control" name="customerLastName" [(ngModel)]="record.customerLastName" required>
+          </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+          <button type="submit" class="btn btn-primary" [disabled]="recordForm.invalid">
+            {{ isEditMode ? 'Update Record' : 'Create Record' }}
+          </button>
+          <a routerLink="/records" class="btn btn-secondary">Cancel</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
