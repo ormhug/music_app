@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Record List</h2>
@@ -47,21 +49,21 @@
           {{ record.stockQty | stockStatus }}
         </td>
 
-        <td>
-          <a [routerLink]="['/records', record.id]" class="btn btn-info btn-sm me-2">
-            View
+        <td> 
+          <a [routerLink]="['/records', record.id]" class="btn btn-primary btn-sm me-2">
+            <i class="fa-regular fa-eye"></i>
           </a>
 
           <a *ngIf="canEdit()" 
              [routerLink]="['/records/edit', record.id]" 
              class="btn btn-warning btn-sm me-2">
-            Edit
+            <i class="fa-regular fa-pen-to-square"></i>
           </a>
 
           <button *ngIf="canDelete()" 
                   (click)="deleteRecord(record.id)" 
                   class="btn btn-danger btn-sm">
-            Delete
+            <i class="fa-regular fa-trash-can"></i>
           </button>
         </td>
       </tr>
