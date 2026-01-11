@@ -1,6 +1,6 @@
 <div class="container mt-4 mb-5">
   <div class="card shadow">
-    <div class="card-header bg-primary text-white">
+    <div class="card-header bg-dark text-white">
       <h3 class="mb-0">{{ isEditMode ? 'Edit Record' : 'Add New Record' }}</h3>
     </div>
     <div class="card-body">
@@ -120,7 +120,7 @@
         </div>
 
         <div class="mt-4 d-flex gap-2">
-          <button type="submit" class="btn btn-primary" [disabled]="recordForm.invalid">
+          <button type="submit" class="btn btn-success" [disabled]="recordForm.invalid">
             {{ isEditMode ? 'Update Record' : 'Create Record' }}
           </button>
           <a routerLink="/records" class="btn btn-secondary">Cancel</a>

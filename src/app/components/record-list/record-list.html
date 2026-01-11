@@ -34,19 +34,19 @@
       <tr *ngFor="let record of records">
         <td>{{ record.id }}</td>
         
-        <td>{{ record.title | lowercase }}</td>
+        <td>{{ record.title  }}</td>
         
         <td>{{ record.artist }}</td>
         <td>{{ record.format }}</td>
         <td>{{ record.genre }}</td>
         <td>€{{ record.price }}</td>
         
-        <td [ngClass]="{
+        <td class="fw-bold" [ngClass]="{
           'text-success': record.stockQty > 3,
           'text-warning': record.stockQty >= 1 && record.stockQty <= 3,
           'text-danger': record.stockQty === 0
         }">
-          {{ record.stockQty | stockStatus }}
+          {{ record.stockQty | stockStatus  | uppercase}}
         </td>
 
         <td> 
